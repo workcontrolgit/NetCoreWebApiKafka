@@ -1,10 +1,11 @@
 ﻿using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
+using NetCoreWebApiKafka.Application.Interfaces;
 using System.Threading.Tasks;
 
 namespace NetCoreWebApiKafka.Infrastructure.Shared.Services
 {
-    public class ProducerService
+    public class ProducerService : IProducerService
     {
         private readonly IConfiguration _configuration;
         private readonly IProducer<Null, string> _producer;

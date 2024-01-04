@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using NetCoreWebApiKafka.Application.Exceptions;
+using NetCoreWebApiKafka.Application.Interfaces;
 using NetCoreWebApiKafka.Application.Interfaces.Repositories;
 using NetCoreWebApiKafka.Application.Wrappers;
 using System;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,10 +20,12 @@ namespace NetCoreWebApiKafka.Application.Features.Positions.Commands.UpdatePosit
         public class UpdatePositionCommandHandler : IRequestHandler<UpdatePositionCommand, Response<Guid>>
         {
             private readonly IPositionRepositoryAsync _positionRepository;
+            private readonly IProducerService _producerService;
 
-            public UpdatePositionCommandHandler(IPositionRepositoryAsync positionRepository)
+            public UpdatePositionCommandHandler(IPositionRepositoryAsync positionRepository, IProducerService producerService)
             {
                 _positionRepository = positionRepository;
+                _producerService = producerService;
             }
 
             public async Task<Response<Guid>> Handle(UpdatePositionCommand command, CancellationToken cancellationToken)
@@ -38,6 +42,12 @@ namespace NetCoreWebApiKafka.Application.Features.Positions.Commands.UpdatePosit
                     position.PositionSalary = command.PositionSalary;
                     position.PositionDescription = command.PositionDescription;
                     await _positionRepository.UpdateAsync(position);
+
+                    var message = JsonSerializer.Serialize(position);
+
+                    await _producerService.ProduceAsync("InventoryUpdates", message);
+
+
                     return new Response<Guid>(position.Id);
                 }
             }
