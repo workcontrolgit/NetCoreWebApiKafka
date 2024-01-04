@@ -1,4 +1,6 @@
 ﻿using Confluent.Kafka;
+using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 
 namespace NetCoreWebApiKafka.Infrastructure.Shared.Services
 {
