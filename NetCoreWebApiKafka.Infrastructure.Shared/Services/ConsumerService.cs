@@ -1,8 +1,15 @@
 ﻿using Confluent.Kafka;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using NetCoreWebApiKafka.Application.Interfaces;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace InventoryConsumer.Services
+namespace NetCoreWebApiKafka.Infrastructure.Shared.Services
 {
-    public class ConsumerService : BackgroundService
+    public class ConsumerService : BackgroundService, IConsumerService
     {
         private readonly IConsumer<Ignore, string> _consumer;
         private readonly ILogger<ConsumerService> _logger;
@@ -14,7 +21,7 @@ namespace InventoryConsumer.Services
             var consumerConfig = new ConsumerConfig
             {
                 BootstrapServers = configuration["Kafka:BootstrapServers"],
-                GroupId = "InventoryConsumerGroup",
+                GroupId = "PositionConsumerGroup",
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
             _consumer = new ConsumerBuilder<Ignore, string>(consumerConfig).Build();
@@ -22,12 +29,12 @@ namespace InventoryConsumer.Services
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _consumer.Subscribe("InventoryUpdates");
+            _consumer.Subscribe("UpdatedPositions");
 
             while (!stoppingToken.IsCancellationRequested)
             {
                 ProcessKafkaMessage(stoppingToken);
-                Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+                await Task.Delay(1000, stoppingToken);
             }
 
             _consumer.Close();
@@ -39,7 +46,7 @@ namespace InventoryConsumer.Services
                 var consumeResult = _consumer.Consume(stoppingToken);
                 var message = consumeResult.Message.Value;
 
-                _logger.LogInformation($"Received inventory update: {message}");
+                _logger.LogInformation($"Received position update: {message}");
             }
             catch (Exception ex)
             {
@@ -47,5 +54,5 @@ namespace InventoryConsumer.Services
             }
         }
     }
-    
+
 }
