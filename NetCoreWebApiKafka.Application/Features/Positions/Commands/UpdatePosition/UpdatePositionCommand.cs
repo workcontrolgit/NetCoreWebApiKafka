@@ -45,7 +45,7 @@ namespace NetCoreWebApiKafka.Application.Features.Positions.Commands.UpdatePosit
 
                     var message = JsonSerializer.Serialize(position);
 
-                    await _producerService.ProduceAsync("InventoryUpdates", message);
+                    await _producerService.ProduceAsync("UpdatedPositions", message);
 
 
                     return new Response<Guid>(position.Id);

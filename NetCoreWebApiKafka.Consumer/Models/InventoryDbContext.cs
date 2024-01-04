@@ -7,6 +7,6 @@ namespace InventoryConsumer.Models
         public InventoryDbContext(DbContextOptions<InventoryDbContext> options) : base(options) 
         {
         }
-        public DbSet<InventoryUpdateRequest> InventoryUpdates { get; set; }
+        public DbSet<InventoryUpdateRequest> UpdatedPositions { get; set; }
     }
 }

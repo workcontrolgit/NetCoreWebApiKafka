@@ -14,7 +14,7 @@ namespace InventoryConsumer.Services
             var consumerConfig = new ConsumerConfig
             {
                 BootstrapServers = configuration["Kafka:BootstrapServers"],
-                GroupId = "InventoryConsumerGroup",
+                GroupId = "PositionConsumerGroup",
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
             _consumer = new ConsumerBuilder<Ignore, string>(consumerConfig).Build();
@@ -22,12 +22,12 @@ namespace InventoryConsumer.Services
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _consumer.Subscribe("InventoryUpdates");
+            _consumer.Subscribe("UpdatedPositions");
 
             while (!stoppingToken.IsCancellationRequested)
             {
                 ProcessKafkaMessage(stoppingToken);
-                Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
             }
 
             _consumer.Close();
@@ -39,7 +39,7 @@ namespace InventoryConsumer.Services
                 var consumeResult = _consumer.Consume(stoppingToken);
                 var message = consumeResult.Message.Value;
 
-                _logger.LogInformation($"Received inventory update: {message}");
+                _logger.LogInformation($"Received position update: {message}");
             }
             catch (Exception ex)
             {
