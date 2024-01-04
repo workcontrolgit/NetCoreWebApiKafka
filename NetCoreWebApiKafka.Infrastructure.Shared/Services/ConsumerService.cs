@@ -1,8 +1,15 @@
 ﻿using Confluent.Kafka;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using NetCoreWebApiKafka.Application.Interfaces;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace InventoryConsumer.Services
+namespace NetCoreWebApiKafka.Infrastructure.Shared.Services
 {
-    public class ConsumerService : BackgroundService
+    public class ConsumerService : BackgroundService, IConsumerService
     {
         private readonly IConsumer<Ignore, string> _consumer;
         private readonly ILogger<ConsumerService> _logger;
@@ -27,7 +34,7 @@ namespace InventoryConsumer.Services
             while (!stoppingToken.IsCancellationRequested)
             {
                 ProcessKafkaMessage(stoppingToken);
-                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+                await Task.Delay(1000, stoppingToken);
             }
 
             _consumer.Close();
@@ -47,5 +54,5 @@ namespace InventoryConsumer.Services
             }
         }
     }
-    
+
 }
