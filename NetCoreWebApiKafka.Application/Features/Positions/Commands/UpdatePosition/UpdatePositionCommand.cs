@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Configuration;
 using NetCoreWebApiKafka.Application.Exceptions;
 using NetCoreWebApiKafka.Application.Interfaces;
 using NetCoreWebApiKafka.Application.Interfaces.Repositories;
@@ -21,11 +22,17 @@ namespace NetCoreWebApiKafka.Application.Features.Positions.Commands.UpdatePosit
         {
             private readonly IPositionRepositoryAsync _positionRepository;
             private readonly IProducerService _producerService;
+            private readonly IConfiguration _configuration;
+            // KafKa  topic
+            private readonly string _topic;
 
-            public UpdatePositionCommandHandler(IPositionRepositoryAsync positionRepository, IProducerService producerService)
+            public UpdatePositionCommandHandler(IConfiguration configuration, IPositionRepositoryAsync positionRepository, IProducerService producerService)
             {
                 _positionRepository = positionRepository;
                 _producerService = producerService;
+                _configuration = configuration;
+                // KafKa topic
+                _topic = _configuration["Kafka:Topic"];
             }
 
             public async Task<Response<Guid>> Handle(UpdatePositionCommand command, CancellationToken cancellationToken)
@@ -45,7 +52,8 @@ namespace NetCoreWebApiKafka.Application.Features.Positions.Commands.UpdatePosit
 
                     var message = JsonSerializer.Serialize(position);
 
-                    await _producerService.ProduceAsync("UpdatedPositions", message);
+                    // KafKa producer
+                    await _producerService.ProduceAsync(_topic, message);
 
 
                     return new Response<Guid>(position.Id);
