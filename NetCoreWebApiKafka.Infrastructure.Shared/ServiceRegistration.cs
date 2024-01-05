@@ -14,6 +14,8 @@ namespace NetCoreWebApiKafka.Infrastructure.Shared
             services.AddTransient<IDateTimeService, DateTimeService>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IMockService, MockService>();
+            services.AddTransient<IProducerService, KafKaProducerService>();
+            services.AddTransient<IConsumerService, KafkaConsumerService>();
         }
     }
 }

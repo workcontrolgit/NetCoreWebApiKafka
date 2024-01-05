@@ -5,19 +5,31 @@ VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{651A6B79-AFC0-4D64-8F76-2128073B16D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreWebApiKafka.WebApi", "NetCoreWebApiKafka.WebApi\NetCoreWebApiKafka.WebApi.csproj", "{96CD2D16-6493-4AAF-A0E1-A04FCA441B1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreWebApiKafka.WebApi", "NetCoreWebApiKafka.WebApi\NetCoreWebApiKafka.WebApi.csproj", "{96CD2D16-6493-4AAF-A0E1-A04FCA441B1F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{38A8F4AF-C794-413C-9DF9-0F758AB38EFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreWebApiKafka.Application", "NetCoreWebApiKafka.Application\NetCoreWebApiKafka.Application.csproj", "{35C832EC-CF04-4501-9743-2B84F125F4A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreWebApiKafka.Application", "NetCoreWebApiKafka.Application\NetCoreWebApiKafka.Application.csproj", "{35C832EC-CF04-4501-9743-2B84F125F4A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreWebApiKafka.Domain", "NetCoreWebApiKafka.Domain\NetCoreWebApiKafka.Domain.csproj", "{C6EEF75D-D5FC-4122-A5CE-17AD5A357BBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreWebApiKafka.Domain", "NetCoreWebApiKafka.Domain\NetCoreWebApiKafka.Domain.csproj", "{C6EEF75D-D5FC-4122-A5CE-17AD5A357BBA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{C91A3408-8CB4-4526-91E2-0BD749B18711}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreWebApiKafka.Infrastructure.Persistence", "NetCoreWebApiKafka.Infrastructure.Persistence\NetCoreWebApiKafka.Infrastructure.Persistence.csproj", "{6725CB2E-FF0E-4083-AD7E-410F860CFF59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreWebApiKafka.Infrastructure.Persistence", "NetCoreWebApiKafka.Infrastructure.Persistence\NetCoreWebApiKafka.Infrastructure.Persistence.csproj", "{6725CB2E-FF0E-4083-AD7E-410F860CFF59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreWebApiKafka.Infrastructure.Shared", "NetCoreWebApiKafka.Infrastructure.Shared\NetCoreWebApiKafka.Infrastructure.Shared.csproj", "{6910C15A-48D1-4363-84BD-EBE482AC164E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreWebApiKafka.Infrastructure.Shared", "NetCoreWebApiKafka.Infrastructure.Shared\NetCoreWebApiKafka.Infrastructure.Shared.csproj", "{6910C15A-48D1-4363-84BD-EBE482AC164E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreWebApiKafka.Consumer", "NetCoreWebApiKafka.Consumer\NetCoreWebApiKafka.Consumer.csproj", "{736F949B-B88D-4426-A0D0-F77C54D3C8A3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{219DF227-D4AD-4128-A450-D45908BC6A84}"
+	ProjectSection(SolutionItems) = preProject
+		README.MD = README.MD
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{D7563188-2246-4D4C-AB6C-92DD2DB218F1}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +57,10 @@ Global
 		{6910C15A-48D1-4363-84BD-EBE482AC164E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6910C15A-48D1-4363-84BD-EBE482AC164E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6910C15A-48D1-4363-84BD-EBE482AC164E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{736F949B-B88D-4426-A0D0-F77C54D3C8A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{736F949B-B88D-4426-A0D0-F77C54D3C8A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{736F949B-B88D-4426-A0D0-F77C54D3C8A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{736F949B-B88D-4426-A0D0-F77C54D3C8A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +71,7 @@ Global
 		{C6EEF75D-D5FC-4122-A5CE-17AD5A357BBA} = {38A8F4AF-C794-413C-9DF9-0F758AB38EFA}
 		{6725CB2E-FF0E-4083-AD7E-410F860CFF59} = {C91A3408-8CB4-4526-91E2-0BD749B18711}
 		{6910C15A-48D1-4363-84BD-EBE482AC164E} = {C91A3408-8CB4-4526-91E2-0BD749B18711}
+		{736F949B-B88D-4426-A0D0-F77C54D3C8A3} = {651A6B79-AFC0-4D64-8F76-2128073B16D9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {90DA82B1-A5D3-4297-9654-AEF069D494B7}
